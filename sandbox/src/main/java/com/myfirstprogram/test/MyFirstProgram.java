@@ -6,15 +6,13 @@ public class MyFirstProgram {
         System.out.println("Hello, Java Programming For Testers");
 
 
-        Point p1 = new Point(10.5, 15.6);
-        Point p2 = new Point(20.6, 31.2);
+        Point p1 = new Point(10, 15);
+        Point p2 = new Point(20, 30);
 
         System.out.println("The distance between Point P1 with coordinates: X=" + p1.x + ", Y=" + p1.y +
                 " and Point P2 with coordinates: X=" + p2.x + ", Y=" + p2.y + ", equals to " + distance(p1, p2));
     }
-        //System.out.println("The distance between Point P1 with coordinates: X=" + p1.x + ", Y=" +p1.y+
-        //        " and Point P2 with coordinates: X=" +p2.x+ ", Y=" +p2.y+ ", equals to " +p.distance());
-        // If I'd use distance() method in my object class, how do I define it here?
+
 
     public static double distance(Point p1, Point p2) {
 
