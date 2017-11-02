@@ -12,23 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class TestBase {
     FirefoxDriver wd;
 
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    @BeforeMethod
-    public void setUp() throws Exception {
-        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        wd.get("http://localhost/addressbook/index.php");
-        login("admin", "secret");
-    }
-
     protected void goToHomepage() {
         wd.findElement(By.linkText("home")).click();
     }
@@ -99,11 +82,6 @@ public class TestBase {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    @AfterMethod
-    public void tearDown() {
-        wd.quit();
-    }
-
     protected void deleteSelectedGroups() {
         wd.findElement(By.name("delete")).click();
     }
@@ -126,5 +104,27 @@ public class TestBase {
 
     protected void deleteSelectedContacts() {
         wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    }
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
+        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.get("http://localhost/addressbook/index.php");
+        login("admin", "secret");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        wd.quit();
+    }
+
+    public static boolean isAlertPresent(FirefoxDriver wd) {
+        try {
+            wd.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
     }
 }
