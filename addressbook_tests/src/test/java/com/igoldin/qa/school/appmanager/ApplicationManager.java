@@ -1,9 +1,7 @@
 package com.igoldin.qa.school.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -14,19 +12,6 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
-
-    public ApplicationManager(SessionHelper sessionHelper) {
-        this.sessionHelper = sessionHelper;
-    }
-
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
 
     public void confirmActionOnPopup() {
         wd.switchTo().alert().accept();
