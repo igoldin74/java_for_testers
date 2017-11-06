@@ -1,4 +1,4 @@
-package com.igoldin.qa.school;
+package com.igoldin.qa.school.model;
 
 public class GroupData {
     private final String name;
