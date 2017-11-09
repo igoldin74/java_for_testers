@@ -1,24 +1,37 @@
 package com.igoldin.qa.school.appmanager;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.safari.SafariDriver;
+
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-
-    FirefoxDriver wd;
+    WebDriver wd;
 
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
+    private String browser;
 
-    public void confirmActionOnPopup() {
-        wd.switchTo().alert().accept();
+    public ApplicationManager(String browser) {
+        this.browser = browser;
     }
 
+
     public void init() {
-        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
+        if (Objects.equals(browser, BrowserType.FIREFOX)) {
+            wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
+        } else if (Objects.equals(browser, BrowserType.CHROME)) {
+            wd = new ChromeDriver();
+        } else if (Objects.equals(browser, BrowserType.SAFARI)) {
+            wd = new SafariDriver();
+        }
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/index.php");
         sessionHelper = new SessionHelper(wd);
