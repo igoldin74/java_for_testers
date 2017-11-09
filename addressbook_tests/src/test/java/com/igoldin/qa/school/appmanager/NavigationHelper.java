@@ -2,11 +2,12 @@ package com.igoldin.qa.school.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class NavigationHelper extends HelperBase {
 
-    public NavigationHelper (FirefoxDriver wd) {
+    public NavigationHelper (WebDriver wd) {
         super(wd);
     }
 
@@ -20,6 +21,10 @@ public class NavigationHelper extends HelperBase {
 
     public void goToGroupPage() {
         click(By.linkText("groups"));
+    }
+
+    public void confirmActionOnPopup() {
+        wd.switchTo().alert().accept();
     }
 
     public boolean isAlertPresent() {

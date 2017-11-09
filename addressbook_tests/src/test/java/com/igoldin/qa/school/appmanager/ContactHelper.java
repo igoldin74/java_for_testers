@@ -2,11 +2,12 @@ package com.igoldin.qa.school.appmanager;
 
 import com.igoldin.qa.school.model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ContactHelper extends HelperBase {
 
-    public ContactHelper (FirefoxDriver wd) {
+    public ContactHelper (WebDriver wd) {
         super(wd);
     }
 
@@ -20,11 +21,11 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactCreation() {
-        click(By.linkText("add new"));
+        click(By.xpath("//div[@id='nav']//a[.='add new']"));
     }
 
     public void selectContact() {
-        click(By.id("1"));
+        click(By.id("4"));
     }
 
     public void deleteSelectedContacts() {
