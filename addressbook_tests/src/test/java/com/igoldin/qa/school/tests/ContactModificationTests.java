@@ -5,6 +5,7 @@ import com.igoldin.qa.school.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -15,22 +16,29 @@ public class ContactModificationTests extends TestBase {
         if (! app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToGroupPage();
             if (! app.getGroupHelper().isThereAGroup()) {
-                app.getGroupHelper().createNewGroup(new GroupData("test_group", "test_group", "test_group"));
+                app.getGroupHelper().createNewGroup(new GroupData(null,"test_group", "test_group", "test_group"));
             }
-            app.getContactHelper().createNewContact(new ContactData("test_name", "test_middle_name",
-                    "test_last_name", null, "7732943449",
+            app.getContactHelper().createNewContact(new ContactData(null,"Rand", null,
+                    "McNally", null, "7732943449",
                     "test@testing.com", "test_group"), true);
         }
         app.getNavigationHelper().goToHomepage();
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification();
-        app.getContactHelper().fillContactForm(new ContactData("test_name_updated", "Updated",
-                "test_surname", "test_company",
-                "7732943449", "test@testing.com", null), false);
+        app.getContactHelper().initContactModification(before.size() - 1);
+        ContactData contact = new ContactData(null,
+                before.get(before.size() - 1).getFirst_name(), before.get(before.size() - 1).getMiddle_name(),
+                before.get(before.size() - 1).getLast_name(), "test_company",
+                "7732943449", "test@testing.com", null);
+        app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitUpdatedContact();
         app.getNavigationHelper().goToHomepage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
+
+
+        before.remove(before.size() - 1);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
     }
 }
