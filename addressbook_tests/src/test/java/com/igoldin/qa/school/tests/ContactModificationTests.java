@@ -5,6 +5,7 @@ import com.igoldin.qa.school.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,9 +17,9 @@ public class ContactModificationTests extends TestBase {
         if (! app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToGroupPage();
             if (! app.getGroupHelper().isThereAGroup()) {
-                app.getGroupHelper().createNewGroup(new GroupData(null,"test_group", "test_group", "test_group"));
+                app.getGroupHelper().createNewGroup(new GroupData(0,"test_group", "test_group", "test_group"));
             }
-            app.getContactHelper().createNewContact(new ContactData(null,"Rand", null,
+            app.getContactHelper().createNewContact(new ContactData(0,"Rand", null,
                     "McNally", null, "7732943449",
                     "test@testing.com", "test_group"), true);
         }
@@ -40,7 +41,10 @@ public class ContactModificationTests extends TestBase {
 
         before.remove(before.size() - 1);
         before.add(contact);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(),c2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
 
     }
 }

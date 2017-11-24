@@ -1,7 +1,7 @@
 package com.igoldin.qa.school.model;
 
 public class ContactData {
-    private final String id;
+    private int id;
     private final String first_name;
     private final String middle_name;
     private final String last_name;
@@ -10,7 +10,7 @@ public class ContactData {
     private final String email1;
     private String group;
 
-    public ContactData(String id, String first_name, String middle_name, String last_name,
+    public ContactData(int id, String first_name, String middle_name, String last_name,
                        String company, String home_phone, String email1, String group) {
         this.first_name = first_name;
         this.middle_name = middle_name;
@@ -19,10 +19,14 @@ public class ContactData {
         this.home_phone = home_phone;
         this.email1 = email1;
         this.group = group;
+        this.id = Integer.MAX_VALUE;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -58,8 +62,8 @@ public class ContactData {
     public String toString() {
         return "ContactData{" +
                 "first_name='" + first_name + '\'' +
-                ", middle_name='" + middle_name + '\'' +
                 ", last_name='" + last_name + '\'' +
+                ", email1='" + email1 + '\'' +
                 '}';
     }
 
@@ -71,14 +75,15 @@ public class ContactData {
         ContactData that = (ContactData) o;
 
         if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
-        return last_name != null ? last_name.equals(that.last_name) : that.last_name == null;
+        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
+        return email1 != null ? email1.equals(that.email1) : that.email1 == null;
     }
 
     @Override
     public int hashCode() {
         int result = first_name != null ? first_name.hashCode() : 0;
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+        result = 31 * result + (email1 != null ? email1.hashCode() : 0);
         return result;
     }
-
 }
