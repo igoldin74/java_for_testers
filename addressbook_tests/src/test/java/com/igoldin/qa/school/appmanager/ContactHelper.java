@@ -8,12 +8,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
-    private ContactData contact;
-    private int index;
+    // private ContactData contact;
+    // private int index;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -77,12 +78,12 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
-            String first_name = element.getText();
-            String middle_name = element.getText();
-            String last_name = element.getText();
+            String last_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[2]")).getText();
+            String email = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[5]")).getText();
+            String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();
             String id = element.findElement(By.tagName("input")).getAttribute("value");
-            ContactData contact = new ContactData(id, first_name, middle_name, last_name, null,
-                    null, null, null);
+            ContactData contact = new ContactData(id, first_name, null, last_name, null,
+                    null, email, null);
             contacts.add(contact);
         }
         return contacts;

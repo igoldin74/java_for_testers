@@ -71,14 +71,12 @@ public class ContactData {
         ContactData that = (ContactData) o;
 
         if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
-        if (middle_name != null ? !middle_name.equals(that.middle_name) : that.middle_name != null) return false;
         return last_name != null ? last_name.equals(that.last_name) : that.last_name == null;
     }
 
     @Override
     public int hashCode() {
         int result = first_name != null ? first_name.hashCode() : 0;
-        result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
         return result;
     }
