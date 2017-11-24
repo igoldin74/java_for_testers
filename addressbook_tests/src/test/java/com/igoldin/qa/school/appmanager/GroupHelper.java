@@ -17,8 +17,8 @@ public class GroupHelper extends HelperBase {
 
     public void fillGroupForm(GroupData groupData) {
         type("group_name",groupData.getName());
-        type("group_name",groupData.getHeader());
-        type("group_name",groupData.getFooter());
+        type("group_header",groupData.getHeader());
+        type("group_footer",groupData.getFooter());
     }
 
     public void initGroupCreation() {
@@ -64,7 +64,8 @@ public class GroupHelper extends HelperBase {
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
-            GroupData group = new GroupData(name, null, null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            GroupData group = new GroupData(id, name, null, null);
             groups.add(group);
         }
         return groups;
