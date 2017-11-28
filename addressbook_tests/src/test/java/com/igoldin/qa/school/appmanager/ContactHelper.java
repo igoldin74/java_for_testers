@@ -8,8 +8,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static com.igoldin.qa.school.tests.TestBase.app;
 
 public class ContactHelper extends HelperBase {
 
@@ -37,6 +38,20 @@ public class ContactHelper extends HelperBase {
 
     public void initContactCreation() {
         click(By.linkText("add new"));
+    }
+
+    public void modifyContact(int index, ContactData contact) {
+        initContactModification(index - 1);
+        fillContactForm(contact, false);
+        submitUpdatedContact();
+        app.getNavigationHelper().goToHomepage();
+    }
+
+    public void removeContact(int index) {
+        selectContact(index - 1);
+        deleteSelectedContacts();
+        app.getNavigationHelper().confirmActionOnPopup();
+        app.getNavigationHelper().goToHomepage();
     }
 
     public void selectContact(int index) {
@@ -78,9 +93,10 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
+            //System.out.println(element);
+            String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();
             String last_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[2]")).getText();
             String email = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[5]")).getText();
-            String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             ContactData contact = new ContactData(id, first_name, null, last_name, null,
                     null, email, null);

@@ -31,9 +31,9 @@ public class ApplicationManager {
         } else if (Objects.equals(browser, BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (Objects.equals(browser, BrowserType.SAFARI)) {
-            wd = new SafariDriver(new SafariOptions().setUseTechnologyPreview(true));
+            wd = new SafariDriver();
         }
-        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/index.php");
         sessionHelper = new SessionHelper(wd);
         navigationHelper = new NavigationHelper(wd);

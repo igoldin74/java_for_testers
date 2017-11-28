@@ -9,6 +9,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.igoldin.qa.school.tests.TestBase.app;
+
 public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver wd) {
@@ -23,6 +25,14 @@ public class GroupHelper extends HelperBase {
 
     public void initGroupCreation() {
         click(By.name("new"));
+    }
+
+    public void modifyGroup(int index, GroupData group) {
+        selectGroup(index - 1);
+        initGroupModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        app.getNavigationHelper().returnToGroupPage();
     }
 
     public void submitGroupCreation() {

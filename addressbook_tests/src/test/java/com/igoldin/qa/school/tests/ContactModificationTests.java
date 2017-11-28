@@ -3,17 +3,16 @@ package com.igoldin.qa.school.tests;
 import com.igoldin.qa.school.model.ContactData;
 import com.igoldin.qa.school.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-
-    @Test
-    public void testContactModification() {
+    @BeforeMethod
+    public void applyPreconditions() {
         if (! app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToGroupPage();
             if (! app.getGroupHelper().isThereAGroup()) {
@@ -24,17 +23,17 @@ public class ContactModificationTests extends TestBase {
                     "test@testing.com", "test_group"), true);
         }
         app.getNavigationHelper().goToHomepage();
+    }
+
+    @Test
+    public void testContactModification() {
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification(before.size() - 1);
-
-        ContactData contact = new ContactData(before.get(before.size() - 1).getId(),
-                before.get(before.size() - 1).getFirst_name(), null,
-                before.get(before.size() - 1).getLast_name(), "test_company",
-                "7732943449_edited", before.get(before.size() - 1).getEmail1(), null);
-
-        app.getContactHelper().fillContactForm(contact, false);
-        app.getContactHelper().submitUpdatedContact();
-        app.getNavigationHelper().goToHomepage();
+        int index = before.size();
+        ContactData contact = new ContactData(before.get(index - 1).getId(),
+                before.get(index - 1).getFirst_name(), null,
+                before.get(index - 1).getLast_name(), "test_company",
+                "7732943449_edited", before.get(index - 1).getEmail1(), null);
+        app.getContactHelper().modifyContact(index, contact);
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
 
@@ -47,4 +46,5 @@ public class ContactModificationTests extends TestBase {
         Assert.assertEquals(before, after);
 
     }
+
 }

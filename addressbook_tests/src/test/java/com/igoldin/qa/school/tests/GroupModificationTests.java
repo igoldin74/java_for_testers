@@ -2,6 +2,7 @@ package com.igoldin.qa.school.tests;
 
 import com.igoldin.qa.school.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -9,22 +10,22 @@ import java.util.List;
 
 public class GroupModificationTests extends TestBase {
 
-
-    @Test
-    public void testGroupModification() {
+    @BeforeMethod
+    public void applyPreconditions() {
         app.getNavigationHelper().goToGroupPage();
         if (! app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createNewGroup(new GroupData(0,"test_group", "none", "none"));
         }
         app.getNavigationHelper().returnToGroupPage();
+    }
+
+    @Test
+    public void testGroupModification() {
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().initGroupModification();
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(),before.get(before.size() - 1).getName(),
+        int index = before.size();
+        GroupData group = new GroupData(before.get(index - 1).getId(),before.get(index - 1).getName(),
                 "test_group", "test_group");
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupModification();
-        app.getNavigationHelper().returnToGroupPage();
+        app.getGroupHelper().modifyGroup(index, group);
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(), before.size());
 
