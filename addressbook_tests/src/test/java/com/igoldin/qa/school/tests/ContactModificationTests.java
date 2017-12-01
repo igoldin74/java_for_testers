@@ -8,41 +8,40 @@ import org.testng.annotations.Test;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void applyPreconditions() {
-        if (! app.getContactHelper().isThereAContact()) {
-            app.getNavigationHelper().goToGroupPage();
-            if (! app.getGroupHelper().isThereAGroup()) {
-                app.getGroupHelper().createNewGroup(new GroupData(0,"test_group", "test_group", "test_group"));
+        if (app.contact().all().size() == 0) {
+            app.goTo().groupPage();
+            if (app.group().all().size() == 0) {
+                app.group().create(new GroupData().withName("test_group")
+                        .withHeader("test_group").withFooter("test_group"));
             }
-            app.getContactHelper().createNewContact(new ContactData(0,"Rand", null,
-                    "McNally", null, "7732943449",
-                    "test@testing.com", "test_group"), true);
+            app.contact().create(new ContactData().withFirst_name("Rand").withLast_name("McNally")
+                    .withHome_phone("7732943449").withEmail1("test@testing.com")
+                    .withGroup("test_group"), true);
         }
-        app.getNavigationHelper().goToHomepage();
+        app.goTo().homePage();
     }
 
     @Test
     public void testContactModification() {
-        List<ContactData> before = app.getContactHelper().getContactList();
+        Set<ContactData> before = app.contact().all();
         int index = before.size();
-        ContactData contact = new ContactData(before.get(index - 1).getId(),
-                before.get(index - 1).getFirst_name(), null,
-                before.get(index - 1).getLast_name(), "test_company",
-                "7732943449_edited", before.get(index - 1).getEmail1(), null);
-        app.getContactHelper().modifyContact(index, contact);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirst_name(
+                modifiedContact.getFirst_name()).withLast_name(
+                modifiedContact.getLast_name()).withEmail1(modifiedContact.getEmail1());
+        app.contact().modifyContact(index, contact);
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
 
 
-        before.remove(before.size() - 1);
+        before.remove(modifiedContact);
         before.add(contact);
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(),c2.getId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before, after);
 
     }

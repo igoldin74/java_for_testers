@@ -7,15 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.igoldin.qa.school.tests.TestBase.app;
 
 public class ContactHelper extends HelperBase {
 
-    // private ContactData contact;
-    // private int index;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -33,6 +32,7 @@ public class ContactHelper extends HelperBase {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
+
         }
     }
 
@@ -44,18 +44,18 @@ public class ContactHelper extends HelperBase {
         initContactModification(index - 1);
         fillContactForm(contact, false);
         submitUpdatedContact();
-        app.getNavigationHelper().goToHomepage();
+        app.goTo().homePage();
     }
 
-    public void removeContact(int index) {
-        selectContact(index - 1);
+    public void removeContact(ContactData contact) {
+        selectContactById(contact.getId());
         deleteSelectedContacts();
-        app.getNavigationHelper().confirmActionOnPopup();
-        app.getNavigationHelper().goToHomepage();
+        app.goTo().confirmActionOnPopup();
+        app.goTo().homePage();
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
 
     public void deleteSelectedContacts() {
@@ -78,7 +78,7 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createNewContact(ContactData contact, boolean b) {
+    public void create(ContactData contact, boolean b) {
         initContactCreation();
         fillContactForm(contact, b);
         submitContactForm();
@@ -89,19 +89,22 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
-            //System.out.println(element);
             String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();
             String last_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[2]")).getText();
             String email = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[5]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(id, first_name, null, last_name, null,
-                    null, email, null);
+            ContactData contact = new ContactData().withId(id).withFirst_name(first_name)
+                    .withLast_name(last_name).withEmail1(email);
             contacts.add(contact);
         }
         return contacts;
     }
+
 }
+
+
+

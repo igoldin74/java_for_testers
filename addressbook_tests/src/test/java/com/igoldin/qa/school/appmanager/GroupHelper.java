@@ -4,10 +4,11 @@ import com.igoldin.qa.school.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.igoldin.qa.school.tests.TestBase.app;
 
@@ -27,24 +28,30 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void modifyGroup(int index, GroupData group) {
-        selectGroup(index - 1);
+    public void modify(GroupData group) {
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
-        app.getNavigationHelper().returnToGroupPage();
+        app.goTo().groupPage();
     }
 
     public void submitGroupCreation() {
         click(By.name("submit"));
     }
 
-    public void deleteSelectedGroups() {
+    public void delete() {
         click(By.name("delete"));
     }
 
-    public void selectGroup(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void delete(GroupData group) {
+        selectGroupById(group.getId());
+        delete();
+        app.goTo().groupPage();
+    }
+
+    public void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void initGroupModification() {
@@ -55,7 +62,7 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createNewGroup(GroupData group) {
+    public void create(GroupData group) {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
@@ -69,15 +76,17 @@ public class GroupHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+
+    public Set<GroupData> all() {
+        Set<GroupData> groups = new HashSet<GroupData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            GroupData group = new GroupData(id, name, null, null);
-            groups.add(group);
+            groups.add(new GroupData().withId(id).withName(name));
         }
         return groups;
     }
+
 }
+
