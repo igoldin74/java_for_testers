@@ -31,9 +31,9 @@ public class ApplicationManager {
         } else if (Objects.equals(browser, BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (Objects.equals(browser, BrowserType.SAFARI)) {
-            wd = new SafariDriver(new SafariOptions().setUseTechnologyPreview(true));
+            wd = new SafariDriver();
         }
-        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/index.php");
         sessionHelper = new SessionHelper(wd);
         navigationHelper = new NavigationHelper(wd);
@@ -46,15 +46,15 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper group() {
         return groupHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
         return contactHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
 
