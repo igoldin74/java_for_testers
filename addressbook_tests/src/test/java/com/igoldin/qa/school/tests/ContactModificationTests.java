@@ -1,14 +1,14 @@
 package com.igoldin.qa.school.tests;
 
 import com.igoldin.qa.school.model.ContactData;
+import com.igoldin.qa.school.model.Contacts;
 import com.igoldin.qa.school.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ContactModificationTests extends TestBase {
 
@@ -29,20 +29,17 @@ public class ContactModificationTests extends TestBase {
 
     @Test
     public void testContactModification() {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         int index = before.size();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirst_name(
                 modifiedContact.getFirst_name()).withLast_name(
                 modifiedContact.getLast_name()).withEmail1(modifiedContact.getEmail1());
         app.contact().modifyContact(index, contact);
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
 
-
-        before.remove(modifiedContact);
-        before.add(contact);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
     }
 

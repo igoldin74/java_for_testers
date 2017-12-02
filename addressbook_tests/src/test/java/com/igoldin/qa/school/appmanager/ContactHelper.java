@@ -1,6 +1,7 @@
 package com.igoldin.qa.school.appmanager;
 
 import com.igoldin.qa.school.model.ContactData;
+import com.igoldin.qa.school.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -89,8 +90,8 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();

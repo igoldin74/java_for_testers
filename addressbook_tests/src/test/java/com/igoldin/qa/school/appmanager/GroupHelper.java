@@ -1,14 +1,12 @@
 package com.igoldin.qa.school.appmanager;
 
 import com.igoldin.qa.school.model.GroupData;
+import com.igoldin.qa.school.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.igoldin.qa.school.tests.TestBase.app;
 
@@ -77,8 +75,8 @@ public class GroupHelper extends HelperBase {
     }
 
 
-    public Set<GroupData> all() {
-        Set<GroupData> groups = new HashSet<GroupData>();
+    public Groups all() {
+        Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
