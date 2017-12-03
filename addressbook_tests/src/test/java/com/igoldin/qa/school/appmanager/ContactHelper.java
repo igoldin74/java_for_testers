@@ -75,6 +75,10 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.cssSelector("a[href^='edit.php?id=']")).get(index).click();
     }
 
+    public void initContactModificationById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href^='edit.php?id=%s']", id))).click();
+    }
+
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
@@ -92,17 +96,39 @@ public class ContactHelper extends HelperBase {
 
     public Contacts all() {
         Contacts contacts = new Contacts();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            String first_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[3]")).getText();
-            String last_name = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[2]")).getText();
-            String email = element.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[5]")).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withFirst_name(first_name)
-                    .withLast_name(last_name).withEmail1(email);
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String first_name = cells.get(2).getText();
+            String last_name = cells.get(1).getText();
+            String emails = cells.get(4).getText();
+            String phones = cells.get(5).getText();
+            String address = cells.get(3).getText();
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+
+            ContactData contact = new ContactData().withId(id).withFirst_name(first_name).withLast_name(last_name)
+                    .withAll_emails(emails).withAll_phones(phones).withAddress(address);
             contacts.add(contact);
         }
         return contacts;
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String homephone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String workphone = wd.findElement(By.name("work")).getAttribute("value");
+        String email1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        wd.navigate().back();
+
+        return new ContactData().withId(contact.getId()).withFirst_name(firstname).withLast_name(lastname)
+                .withHome_phone(homephone).withMobile_phone(mobilephone).withWork_phone(workphone).withEmail1(email1)
+                .withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 
 }
