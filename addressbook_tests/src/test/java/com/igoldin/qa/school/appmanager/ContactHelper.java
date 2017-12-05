@@ -39,8 +39,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void modifyContact(int index, ContactData contact) {
-        initContactModification(index - 1);
+    public void modifyContact(ContactData contact) {
+        initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitUpdatedContact();
         app.goTo().homePage();
