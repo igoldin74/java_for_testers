@@ -26,7 +26,6 @@ public class ContactHelper extends HelperBase {
         type("company", contactData.getCompany());
         type("home", contactData.getHome_phone());
         type("email", contactData.getEmail1());
-
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
@@ -105,7 +104,7 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
 
             ContactData contact = new ContactData().withId(id).withFirst_name(first_name).withLast_name(last_name)
-                    .withAll_emails(emails).withAll_phones(phones).withAddress(address);
+                    .withEmail1(emails).withAll_emails(emails).withAll_phones(phones).withAddress(address);
             contacts.add(contact);
         }
         return contacts;

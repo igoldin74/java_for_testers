@@ -1,6 +1,10 @@
 package com.igoldin.qa.school.generators;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import com.igoldin.qa.school.model.ContactData;
+import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,22 +15,58 @@ import java.util.List;
 
 public class ContactDataGenerator {
 
+    @Parameter(names = "-c", description = "Contact count")
+    public int count;
+
+    @Parameter (names = "-f", description = "Target file")
+    public String file;
+
+    @Parameter (names = "-e", description = "File format")
+    public String format;
+
     public static void main(String[] args) throws IOException {
-        int count = Integer.parseInt(args[0]);
-        File file = new File(args[1]);
+        ContactDataGenerator generator = new ContactDataGenerator();
+        JCommander jCommander = new JCommander(generator);
+        try {
+            jCommander.parse(args);
+        } catch (ParameterException ex) {
+            jCommander.usage();
+        }
+        generator.run();
 
-
-        List<ContactData> contacts = generateContactData(count);
-        save(contacts, file);
     }
 
-    private static void save(List<ContactData> contacts, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (ContactData contact : contacts) {
-            writer.write(String.format("%s; %s; %s; %s; %s\n",contact.getFirst_name(), contact.getLast_name(), contact.getEmail1(),
-                    contact.getMobile_phone(), contact.getAddress()));
+    private void run() throws IOException {
+        List<ContactData> contacts = generateContactData(count);
+        if (format.equals("csv")) {
+            saveAsCsv(contacts, new File(file));
+        } else if (format.equals("xml")) {
+            saveAsXml(contacts, new File(file));
         }
-        writer.close();
+
+    }
+
+    private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
+        try (Writer writer = new FileWriter(file)) {
+            for (ContactData contact : contacts) {
+                writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirst_name(), contact.getLast_name(),
+                        contact.getEmail1(), contact.getAddress(), contact.getGroup()));
+            }
+
+        }
+
+
+    }
+
+    private void saveAsXml(List <ContactData> contacts, File file) throws IOException {
+        XStream xstream = new XStream();
+        XStream.setupDefaultSecurity(xstream);
+        xstream.processAnnotations(ContactData.class);
+        String xml = xstream.toXML(contacts);
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
+
 
     }
 
@@ -35,7 +75,7 @@ public class ContactDataGenerator {
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirst_name(String.format("test_name %s", i))
                     .withLast_name(String.format("test_lastname %s", i)).withEmail1(String.format("test_email1 %s", i))
-                    .withHome_phone(String.format("test_homephone %s", i)).withAddress(String.format("test_address %s", i)));
+                    .withAddress(String.format("test_address %s", i)).withGroup("test_group"));
         }
         return contacts;
 

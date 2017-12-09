@@ -1,8 +1,11 @@
 package com.igoldin.qa.school.model;
 
-import java.util.stream.Collectors;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+@XStreamAlias("contacts")
 public class ContactData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
     private String first_name;
     private String middle_name;
