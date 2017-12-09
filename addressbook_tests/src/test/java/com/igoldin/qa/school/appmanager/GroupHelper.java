@@ -82,8 +82,8 @@ public class GroupHelper extends HelperBase {
     public Groups all() {
         if (groupCache != null) {
             return new Groups(groupCache);
-
         }
+
         groupCache = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
@@ -91,7 +91,7 @@ public class GroupHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             groupCache.add(new GroupData().withId(id).withName(name));
         }
-        return groupCache;
+        return new Groups(groupCache);
     }
 
 }
