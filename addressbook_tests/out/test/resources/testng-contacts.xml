@@ -6,6 +6,7 @@
             <class name="com.igoldin.qa.school.tests.ContactCreationTests" />
             <class name="com.igoldin.qa.school.tests.ContactModificationTests" />
             <class name="com.igoldin.qa.school.tests.ContactDeletionTests" />
+            <class name="com.igoldin.qa.school.tests.ContactFormEntriesTests" />
         </classes>
     </test>
 </suite>
