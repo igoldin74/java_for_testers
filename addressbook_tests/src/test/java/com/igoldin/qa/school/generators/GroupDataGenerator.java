@@ -15,13 +15,13 @@ import java.util.List;
 
 public class GroupDataGenerator {
 
-    @Parameter (names = "-c", description = "Group count")
+    @Parameter(names = "-c", description = "Group count")
     public int count;
 
-    @Parameter (names = "-f", description = "Target file")
+    @Parameter(names = "-f", description = "Target file")
     public String file;
 
-    @Parameter (names = "-e", description = "File format")
+    @Parameter(names = "-e", description = "File format")
     public String format;
 
     public static void main(String[] args) throws IOException {
@@ -37,12 +37,12 @@ public class GroupDataGenerator {
     }
 
     private void run() throws IOException {
-            List<GroupData> groups = generateGroups(count);
-            if (format.equals("csv")) {
-                save(groups, new File(file));
-            } else if (format.equals("xml")) {
-                saveAsXml(groups, new File(file));
-            }
+        List<GroupData> groups = generateGroups(count);
+        if (format.equals("csv")) {
+            save(groups, new File(file));
+        } else if (format.equals("xml")) {
+            saveAsXml(groups, new File(file));
+        }
 
     }
 
@@ -57,21 +57,23 @@ public class GroupDataGenerator {
     }
 
     private void save(List<GroupData> groups, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (GroupData group : groups) {
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+        try (Writer writer = new FileWriter(file)) {
+            for (GroupData group : groups) {
+                writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+            }
+
         }
-        writer.close();
 
     }
 
-    private void saveAsXml(List <GroupData> groups, File file) throws IOException {
+    private void saveAsXml(List<GroupData> groups, File file) throws IOException {
         XStream xstream = new XStream();
+        XStream.setupDefaultSecurity(xstream);
         xstream.processAnnotations(GroupData.class);
         String xml = xstream.toXML(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
 
 
     }

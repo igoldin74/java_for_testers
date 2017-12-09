@@ -47,22 +47,25 @@ public class ContactDataGenerator {
     }
 
     private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (ContactData contact : contacts) {
-            writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirst_name(), contact.getLast_name(),
-                    contact.getEmail1(), contact.getAddress(), contact.getGroup()));
+        try (Writer writer = new FileWriter(file)) {
+            for (ContactData contact : contacts) {
+                writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirst_name(), contact.getLast_name(),
+                        contact.getEmail1(), contact.getAddress(), contact.getGroup()));
+            }
+
         }
-        writer.close();
+
 
     }
 
     private void saveAsXml(List <ContactData> contacts, File file) throws IOException {
         XStream xstream = new XStream();
+        XStream.setupDefaultSecurity(xstream);
         xstream.processAnnotations(ContactData.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
 
 
     }
