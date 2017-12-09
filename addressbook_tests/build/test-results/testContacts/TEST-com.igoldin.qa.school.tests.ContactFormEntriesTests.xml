@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.igoldin.qa.school.tests.ContactFormEntriesTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-12-09T21:24:09" hostname="egoldinmac.local" time="23.114">
+  <properties/>
+  <testcase name="testContactAddress" classname="com.igoldin.qa.school.tests.ContactFormEntriesTests" time="4.543"/>
+  <testcase name="testContactEmails" classname="com.igoldin.qa.school.tests.ContactFormEntriesTests" time="4.781"/>
+  <testcase name="testContactPhones" classname="com.igoldin.qa.school.tests.ContactFormEntriesTests" time="5.222"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
