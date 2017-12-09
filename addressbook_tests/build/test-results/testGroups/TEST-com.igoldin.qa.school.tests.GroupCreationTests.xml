@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.igoldin.qa.school.tests.GroupCreationTests" tests="10" skipped="0" failures="0" errors="0" timestamp="2017-12-09T20:58:31" hostname="egoldinmac.local" time="29.232">
+  <properties/>
+  <testcase name="testGroupCreation[0](GroupData{id=0, name='testname 0'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="5.622"/>
+  <testcase name="testGroupCreation[1](GroupData{id=0, name='testname 1'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="3.651"/>
+  <testcase name="testGroupCreation[2](GroupData{id=0, name='testname 2'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.219"/>
+  <testcase name="testGroupCreation[3](GroupData{id=0, name='testname 3'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="3.115"/>
+  <testcase name="testGroupCreation[4](GroupData{id=0, name='testname 4'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.493"/>
+  <testcase name="testGroupCreation[5](GroupData{id=0, name='testname 5'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.121"/>
+  <testcase name="testGroupCreation[6](GroupData{id=0, name='testname 6'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.32"/>
+  <testcase name="testGroupCreation[7](GroupData{id=0, name='testname 7'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.73"/>
+  <testcase name="testGroupCreation[8](GroupData{id=0, name='testname 8'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.291"/>
+  <testcase name="testGroupCreation[9](GroupData{id=0, name='testname 9'})" classname="com.igoldin.qa.school.tests.GroupCreationTests" time="2.665"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Security framework of XStream not initialized, XStream is probably vulnerable.
+]]></system-err>
+</testsuite>
