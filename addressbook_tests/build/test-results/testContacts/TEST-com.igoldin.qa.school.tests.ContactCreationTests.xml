@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.igoldin.qa.school.tests.ContactCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-12-09T21:22:41" hostname="egoldinmac.local" time="49.776">
+<testsuite name="com.igoldin.qa.school.tests.ContactCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-12-09T23:24:47" hostname="egoldinmac.local" time="32.225">
   <properties/>
-  <testcase name="testContactCreation[0](ContactData{id=0, first_name='test_name 0', last_name='test_lastname 0', home_phone='null', email1='test_email1 0'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="24.318"/>
-  <testcase name="testContactCreation[1](ContactData{id=0, first_name='test_name 1', last_name='test_lastname 1', home_phone='null', email1='test_email1 1'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="12.926"/>
-  <testcase name="testContactCreation[2](ContactData{id=0, first_name='test_name 2', last_name='test_lastname 2', home_phone='null', email1='test_email1 2'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="11.283"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testContactCreation[0](ContactData{id=0, first_name='test_name 0', last_name='test_lastname 0', home_phone='null', email1='test_email1 0'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="15.822"/>
+  <testcase name="testContactCreation[1](ContactData{id=0, first_name='test_name 1', last_name='test_lastname 1', home_phone='null', email1='test_email1 1'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="7.845"/>
+  <testcase name="testContactCreation[2](ContactData{id=0, first_name='test_name 2', last_name='test_lastname 2', home_phone='null', email1='test_email1 2'})" classname="com.igoldin.qa.school.tests.ContactCreationTests" time="7.221"/>
+  <system-out><![CDATA[17:24:44.476 [Test worker] INFO  com.igoldin.qa.school.tests.TestBase - Start test testContactCreationwith parameters [ContactData{id=0, first_name='test_name 0', last_name='test_lastname 0', home_phone='null', email1='test_email1 0'}]
+]]></system-out>
   <system-err><![CDATA[Security framework of XStream not initialized, XStream is probably vulnerable.
 ]]></system-err>
 </testsuite>
