@@ -15,6 +15,8 @@ import java.util.List;
 
 public class ContactDataGenerator {
 
+    //default arguments: -c 1 -f addressbook_tests/src/test/resources/contacts.xml -e xml
+
     @Parameter(names = "-c", description = "Contact count")
     public int count;
 

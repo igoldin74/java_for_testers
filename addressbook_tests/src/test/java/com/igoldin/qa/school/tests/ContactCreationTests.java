@@ -24,11 +24,10 @@ public class ContactCreationTests extends TestBase {
 
     @BeforeMethod
     public void applyPreconditions() {
-        app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
+        //checking for existing group:
+        if (app.db().groups().size() == 0) {
             app.group().create(new GroupData().withName("test_group"));
         }
-        app.goTo().groupPage();
     }
 
     @DataProvider
@@ -50,11 +49,10 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContacts")
     public void testContactCreation(ContactData contact) {
+        Contacts before = app.db().contacts();
         app.goTo().homePage();
-        Contacts before = app.contact().all();
         app.contact().create(contact, true);
-        app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         assertThat(after, equalTo(before

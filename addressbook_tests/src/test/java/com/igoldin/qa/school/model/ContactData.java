@@ -2,24 +2,71 @@ package com.igoldin.qa.school.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 @XStreamAlias("contacts")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column
     private int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     private String first_name;
+
+    @Transient
     private String middle_name;
+
+    @Column(name = "lastname")
     private String last_name;
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, first_name, last_name, email1);
+    }
+
+    @Transient
+
     private String company;
+
+    @Column(name = "home")
+    @Type(type = "text")
     private String home_phone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobile_phone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String work_phone;
+
+    @Transient
     private String all_phones;
+
+    @Column(name = "email")
+    @Type(type = "text")
     private String email1;
+
+    @Transient
     private String email2;
+
+    @Transient
     private String email3;
+
+    @Transient
     private String all_emails;
+
+    @Transient
     private String address;
+
+    @Transient
     private String group;
 
 
@@ -164,7 +211,6 @@ public class ContactData {
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", home_phone='" + home_phone + '\'' +
                 ", email1='" + email1 + '\'' +
                 '}';
     }
@@ -173,23 +219,11 @@ public class ContactData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        if (home_phone != null ? !home_phone.equals(that.home_phone) : that.home_phone != null) return false;
-        return email1 != null ? email1.equals(that.email1) : that.email1 == null;
+        return id == that.id &&
+                Objects.equals(first_name, that.first_name) &&
+                Objects.equals(last_name, that.last_name) &&
+                Objects.equals(email1, that.email1);
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
-        result = 31 * result + (home_phone != null ? home_phone.hashCode() : 0);
-        result = 31 * result + (email1 != null ? email1.hashCode() : 0);
-        return result;
-    }
 }

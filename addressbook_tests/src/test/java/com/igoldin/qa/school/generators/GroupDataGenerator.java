@@ -15,6 +15,8 @@ import java.util.List;
 
 public class GroupDataGenerator {
 
+    //default arguments: -c 1 -f addressbook_tests/src/test/resources/groups.xml -e xml
+
     @Parameter(names = "-c", description = "Group count")
     public int count;
 
