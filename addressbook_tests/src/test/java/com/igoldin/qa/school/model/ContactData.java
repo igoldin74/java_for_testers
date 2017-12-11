@@ -25,12 +25,6 @@ public class ContactData {
     @Column(name = "lastname")
     private String last_name;
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, first_name, last_name, email1);
-    }
-
     @Transient
 
     private String company;
@@ -204,6 +198,23 @@ public class ContactData {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id &&
+                Objects.equals(first_name, that.first_name) &&
+                Objects.equals(last_name, that.last_name) &&
+                Objects.equals(email1, that.email1) &&
+                Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, first_name, last_name, email1, address);
+    }
 
     @Override
     public String toString() {
@@ -213,17 +224,6 @@ public class ContactData {
                 ", last_name='" + last_name + '\'' +
                 ", email1='" + email1 + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id &&
-                Objects.equals(first_name, that.first_name) &&
-                Objects.equals(last_name, that.last_name) &&
-                Objects.equals(email1, that.email1);
     }
 
 }

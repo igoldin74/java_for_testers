@@ -2,15 +2,12 @@ package com.igoldin.qa.school.tests;
 
 import com.igoldin.qa.school.model.GroupData;
 import com.igoldin.qa.school.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupModificationTests extends TestBase {
 
@@ -32,7 +29,8 @@ public class GroupModificationTests extends TestBase {
         Groups after = app.db().groups();
         Assert.assertEquals(after.size(), before.size());
 
-        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
+        assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
+        verifyGrouplistInUI();
 
     }
 
