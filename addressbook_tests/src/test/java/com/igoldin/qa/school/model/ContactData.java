@@ -57,7 +57,8 @@ public class ContactData {
     @Transient
     private String all_emails;
 
-    @Transient
+    @Column
+    @Type(type = "text")
     private String address;
 
     @Transient
@@ -223,6 +224,7 @@ public class ContactData {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email1='" + email1 + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 

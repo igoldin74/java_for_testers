@@ -24,6 +24,7 @@ public class ContactHelper extends HelperBase {
         type("middlename", contactData.getMiddle_name());
         type("lastname", contactData.getLast_name());
         type("company", contactData.getCompany());
+        type("address", contactData.getAddress());
         type("home", contactData.getHome_phone());
         type("email", contactData.getEmail1());
         if (creation) {
@@ -42,7 +43,7 @@ public class ContactHelper extends HelperBase {
         initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitUpdatedContact();
-        //contactCache = null;
+        contactCache = null;
         app.goTo().homePage();
     }
 
@@ -50,7 +51,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         deleteSelectedContacts();
         app.goTo().confirmActionOnPopup();
-        //contactCache = null;
+        contactCache = null;
         app.goTo().homePage();
     }
 
@@ -86,7 +87,7 @@ public class ContactHelper extends HelperBase {
         initContactCreation();
         fillContactForm(contact, b);
         submitContactForm();
-        //contactCache = null;
+        contactCache = null;
     }
 
     public int getContactCount() {
@@ -94,10 +95,14 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    //private Contacts contactCache = null;
+    private Contacts contactCache = null;
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+
+        contactCache = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -110,9 +115,9 @@ public class ContactHelper extends HelperBase {
 
             ContactData contact = new ContactData().withId(id).withFirst_name(first_name).withLast_name(last_name)
                     .withEmail1(emails).withAll_emails(emails).withAll_phones(phones).withAddress(address);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
-        return new Contacts(contacts);
+        return new Contacts(contactCache);
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
