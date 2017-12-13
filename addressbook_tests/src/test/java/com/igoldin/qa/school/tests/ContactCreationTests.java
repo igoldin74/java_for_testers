@@ -3,6 +3,7 @@ package com.igoldin.qa.school.tests;
 import com.igoldin.qa.school.model.ContactData;
 import com.igoldin.qa.school.model.Contacts;
 import com.igoldin.qa.school.model.GroupData;
+import com.igoldin.qa.school.model.Groups;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -32,6 +33,7 @@ public class ContactCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
+        Groups groups = app.db().groups();
         try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
             String xml = "";
             String line = reader.readLine();
