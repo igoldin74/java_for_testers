@@ -1,7 +1,23 @@
 <list>
   <group>
+    <groupId>0</groupId>
     <name>testname 0</name>
     <header>testheader 0</header>
     <footer>testfooter 0</footer>
+    <contacts/>
+  </group>
+  <group>
+    <groupId>0</groupId>
+    <name>testname 1</name>
+    <header>testheader 1</header>
+    <footer>testfooter 1</footer>
+    <contacts/>
+  </group>
+  <group>
+    <groupId>0</groupId>
+    <name>testname 2</name>
+    <header>testheader 2</header>
+    <footer>testfooter 2</footer>
+    <contacts/>
   </group>
 </list>
