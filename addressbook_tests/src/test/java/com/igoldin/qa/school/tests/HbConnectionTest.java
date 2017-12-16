@@ -15,7 +15,7 @@ public class HbConnectionTest {
 
     private SessionFactory sessionFactory;
 
-    @BeforeClass(enabled = false)
+    @BeforeClass(enabled = true)
     protected void setUp() throws Exception {
         // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()

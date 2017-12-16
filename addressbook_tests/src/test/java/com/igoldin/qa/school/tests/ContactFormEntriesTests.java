@@ -24,9 +24,9 @@ public class ContactFormEntriesTests extends TestBase {
                         .withHeader("test_group").withFooter("test_group"));
             }
             Groups groups = app.db().groups();
+            ContactData inGroup = new ContactData().inGroup(groups.iterator().next());
             app.contact().create(new ContactData().withFirst_name("Rand").withLast_name("McNally")
-                    .withHome_phone("7732943449").withEmail1("test@testing.com")
-                    .inGroup(groups.iterator().next()), true);
+                    .withHome_phone("7732943449").withEmail1("test@testing.com"), true);
         }
         app.goTo().homePage();
     }

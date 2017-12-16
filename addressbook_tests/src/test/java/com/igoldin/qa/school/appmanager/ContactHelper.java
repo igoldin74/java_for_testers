@@ -30,13 +30,25 @@ public class ContactHelper extends HelperBase {
         if (creation) {
             if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
 
         }
     }
+
+    public void moveContactToGroup(int id, int groupId) {
+        //int groupId = Integer.parseInt(wd.findElement(By.tagName("option")).getAttribute("value"));
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+        //wd.findElement(By.name("selected[]")).click();
+        wd.findElement(By.name("to_group")).click();
+        new Select(wd.findElement(By.name("to_group"))).selectByIndex(groupId);
+        wd.findElement(By.name("add")).click();
+
+    }
+
 
     public void initContactCreation() {
         click(By.linkText("add new"));

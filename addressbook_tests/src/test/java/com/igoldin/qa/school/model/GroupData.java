@@ -1,5 +1,6 @@
 package com.igoldin.qa.school.model;
 
+import com.google.common.collect.Sets;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
@@ -16,6 +17,9 @@ public class GroupData {
     @Id
     @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
+    @Transient
+    private int groupId;
+
     @Column(name = "group_name")
     private String name;
     @Column(name = "group_header")
@@ -30,6 +34,11 @@ public class GroupData {
 
     public GroupData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public GroupData withGroupId(int id) {
+        this.groupId = id;
         return this;
     }
 
@@ -50,6 +59,10 @@ public class GroupData {
 
     public int getId() {
         return id;
+    }
+
+    public int getGroupId() {
+        return groupId;
     }
 
     public String getName() {       // replaced ContactData with String

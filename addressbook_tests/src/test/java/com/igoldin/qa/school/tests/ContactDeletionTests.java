@@ -21,10 +21,10 @@ public class ContactDeletionTests extends TestBase {
                 app.group().create(new GroupData().withName("test_group").withHeader("test_group").withFooter("test_group"));
             }
             Groups groups = app.db().groups();
+            ContactData inGroup = new ContactData().inGroup(groups.iterator().next());
             ContactData contact = new ContactData();
             app.contact().create(contact.withFirst_name("Rand").withLast_name("McNally")
-                    .withHome_phone("7732943449").withEmail1("test@testing.com")
-                    .inGroup(groups.iterator().next()), true);
+                    .withHome_phone("7732943449").withEmail1("test@testing.com"), true);
         }
     }
     

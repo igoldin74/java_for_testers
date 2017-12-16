@@ -76,11 +76,12 @@ public class ContactDataGenerator {
     }
 
     private static List<ContactData> generateContactData(int count) {
+        Groups groups = app.db().groups();
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirst_name(String.format("test_name %s", i))
                     .withLast_name(String.format("test_lastname %s", i)).withEmail1(String.format("test_email1 %s", i))
-                    .withAddress(String.format("test_address %s", i)));
+                    .withAddress(String.format("test_address %s", i)).inGroup(groups.iterator().next()));
         }
         return contacts;
 

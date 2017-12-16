@@ -34,6 +34,12 @@ public class Contacts extends ForwardingSet<ContactData> {
         return contacts;
     }
 
+    public Contacts inGroups(ContactData contact) { //contacts linked to groups model(?)
+        Contacts contacts = new Contacts(this);
+        contact.getGroups();
+        return contacts;
+    }
+
 
     @Override
     protected Set<ContactData> delegate() {
