@@ -1,12 +1,10 @@
-package com.igoldin.qa.school.tests;
+package com.igoldin.qa.school.mantis.tests;
 
 import com.igoldin.qa.school.appmanager.ApplicationManager;
 import com.igoldin.qa.school.model.ContactData;
 import com.igoldin.qa.school.model.Contacts;
 import com.igoldin.qa.school.model.GroupData;
 import com.igoldin.qa.school.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import org.testng.annotations.BeforeSuite;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;

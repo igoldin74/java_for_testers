@@ -14,7 +14,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.igoldin.qa.school.tests.TestBase.app;
+import static com.igoldin.qa.school.mantis.tests.TestBase.app;
 
 public class ContactDataGenerator {
 

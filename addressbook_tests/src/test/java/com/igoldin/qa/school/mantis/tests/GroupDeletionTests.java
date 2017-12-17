@@ -1,14 +1,10 @@
-package com.igoldin.qa.school.tests;
+package com.igoldin.qa.school.mantis.tests;
 
 import com.igoldin.qa.school.model.GroupData;
 import com.igoldin.qa.school.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;

@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static com.igoldin.qa.school.tests.TestBase.app;
+import static com.igoldin.qa.school.mantis.tests.TestBase.app;
 
 public class GroupHelper extends HelperBase {
 

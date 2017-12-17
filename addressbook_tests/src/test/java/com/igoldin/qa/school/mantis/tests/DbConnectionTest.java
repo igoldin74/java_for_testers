@@ -1,4 +1,4 @@
-package com.igoldin.qa.school.tests;
+package com.igoldin.qa.school.mantis.tests;
 
 import com.igoldin.qa.school.model.GroupData;
 import com.igoldin.qa.school.model.Groups;
