@@ -1,12 +1,14 @@
-package com.igoldin.qa.school.tests;
+package com.igoldin.qa.school.mantis.tests;
 
 import com.igoldin.qa.school.model.ContactData;
 import com.igoldin.qa.school.model.Contacts;
 import com.igoldin.qa.school.model.GroupData;
+import com.igoldin.qa.school.model.Groups;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -28,6 +30,8 @@ public class ContactCreationTests extends TestBase {
         if (app.db().groups().size() == 0) {
             app.group().create(new GroupData().withName("test_group"));
         }
+        Groups groups = app.db().groups();
+        ContactData inGroup = new ContactData().inGroup(groups.iterator().next());
     }
 
     @DataProvider
@@ -48,14 +52,17 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(dataProvider = "validContacts")
-    public void testContactCreation(ContactData contact) {
+    public void testContactCreation(@NoInjection ContactData contact) {
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
+        ContactData newContact = new ContactData().withFirst_name("test_firstname").withLast_name("test_lastname").withEmail1("test_email")
+                .withAddress("test_address").inGroup(groups.iterator().next());
         app.goTo().homePage();
-        app.contact().create(contact, true);
+        app.contact().create(newContact, true);
         Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+        assertThat(after, equalTo(before.withAdded(newContact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
         verifyContactListInUI();
 
 
