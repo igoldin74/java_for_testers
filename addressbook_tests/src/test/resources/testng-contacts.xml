@@ -3,10 +3,10 @@
 <suite name="Suite1" verbose="1" >
     <test name="Contacts">
         <classes>
-            <class name="com.igoldin.qa.school.mantis.tests.ContactCreationTests" />
-            <class name="com.igoldin.qa.school.mantis.tests.ContactModificationTests" />
-            <class name="com.igoldin.qa.school.mantis.tests.ContactDeletionTests" />
-            <class name="com.igoldin.qa.school.mantis.tests.ContactFormEntriesTests" />
+            <class name="com.igoldin.qa.school.tests.ContactCreationTests" />
+            <class name="com.igoldin.qa.school.tests.ContactModificationTests" />
+            <class name="com.igoldin.qa.school.tests.ContactDeletionTests" />
+            <class name="com.igoldin.qa.school.tests.ContactFormEntriesTests" />
         </classes>
     </test>
 </suite>

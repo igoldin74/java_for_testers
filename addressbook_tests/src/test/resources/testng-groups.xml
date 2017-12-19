@@ -3,9 +3,9 @@
 <suite name="Suite1" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="com.igoldin.qa.school.mantis.tests.GroupCreationTests" />
-            <class name="com.igoldin.qa.school.mantis.tests.GroupModificationTests" />
-            <class name="com.igoldin.qa.school.mantis.tests.GroupDeletionTests" />
+            <class name="com.igoldin.qa.school.tests.GroupCreationTests" />
+            <class name="com.igoldin.qa.school.tests.GroupModificationTests" />
+            <class name="com.igoldin.qa.school.tests.GroupDeletionTests" />
         </classes>
     </test>
 </suite>

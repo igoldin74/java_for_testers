@@ -1,4 +1,4 @@
-package com.igoldin.qa.school.mantis.tests;
+package com.igoldin.qa.school.tests;
 
 import com.igoldin.qa.school.appmanager.ApplicationManager;
 import com.igoldin.qa.school.model.ContactData;
