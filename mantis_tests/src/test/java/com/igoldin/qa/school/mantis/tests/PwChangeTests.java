@@ -57,8 +57,8 @@ public class PwChangeTests extends TestBase {
         String email = user.getEmail();
         String username = user.getUsername();
         String newPassword = "qwerty";
-        app.getDriver();
         app.sh().login("administrator", "root");
+        app.navigation().click(By.linkText("Manage"));
         app.navigation().click(By.linkText("Manage Users"));
         app.navigation().click(By.cssSelector(String.format("a[href^='manage_user_edit_page.php?user_id=%s']", id)));
         app.navigation().click(By.cssSelector("input[value='Reset Password']"));

@@ -24,6 +24,7 @@ public class ApplicationManager {
     private DbHelper dbHelper;
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
+    private SoapHelper soapHelper;
 
 
     public ApplicationManager(String browser) {
@@ -35,9 +36,9 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local"); //"local" - default property
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        sessionHelper = new SessionHelper(this);
-        dbHelper = new DbHelper();
-        navigationHelper = new NavigationHelper(this);
+        //sessionHelper = new SessionHelper(this);
+        //dbHelper = new DbHelper();
+        //navigationHelper = new NavigationHelper(this);
     }
 
     public void stop() {
@@ -54,7 +55,46 @@ public class ApplicationManager {
 
     }
 
+    public WebDriver getDriver() {
+        if (wd == null) {
+            if (Objects.equals(browser, BrowserType.FIREFOX)) {
+                wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
+            } else if (Objects.equals(browser, BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (Objects.equals(browser, BrowserType.SAFARI)) {
+                wd = new SafariDriver();
+            }
+            wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            wd.get(properties.getProperty("web.baseUrl"));
+        }
+        return wd;
+    }
+
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper();
+        }
+        return dbHelper;
+    }
+
+    public SessionHelper sh() {
+        if (sessionHelper == null) {
+            sessionHelper = new SessionHelper(this);
+        }
+        return sessionHelper;
+    }
+
+    public SoapHelper soap() {
+        if (soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
+    }
+
     public NavigationHelper navigation() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
+        }
         return navigationHelper;
     }
 
@@ -79,28 +119,4 @@ public class ApplicationManager {
         }
         return mailHelper;
     }
-
-    public WebDriver getDriver() {
-        if (wd == null) {
-            if (Objects.equals(browser, BrowserType.FIREFOX)) {
-                wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-            } else if (Objects.equals(browser, BrowserType.CHROME)) {
-                wd = new ChromeDriver();
-            } else if (Objects.equals(browser, BrowserType.SAFARI)) {
-                wd = new SafariDriver();
-            }
-            wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-            wd.get(properties.getProperty("web.baseUrl"));
-        }
-        return wd;
-    }
-
-    public DbHelper db() {
-        return dbHelper;
-    }
-
-    public SessionHelper sh() {
-        return sessionHelper;
-    }
-
 }

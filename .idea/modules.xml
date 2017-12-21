@@ -11,6 +11,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox_main.iml" group="sandbox" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox_test.iml" group="sandbox" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soap_sandbox.iml" filepath="$PROJECT_DIR$/.idea/modules/soap_sandbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soap_sandbox_main.iml" filepath="$PROJECT_DIR$/.idea/modules/soap_sandbox_main.iml" group="soap_sandbox" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soap_sandbox_test.iml" filepath="$PROJECT_DIR$/.idea/modules/soap_sandbox_test.iml" group="soap_sandbox" />
     </modules>
   </component>
 </project>
