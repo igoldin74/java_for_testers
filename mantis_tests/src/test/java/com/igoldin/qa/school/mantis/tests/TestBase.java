@@ -1,12 +1,23 @@
 package com.igoldin.qa.school.mantis.tests;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import com.igoldin.qa.school.mantis.appmanager.ApplicationManager;
+import com.igoldin.qa.school.mantis.model.Issue;
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import javax.xml.rpc.ServiceException;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 
 public class TestBase {
@@ -27,6 +38,22 @@ public class TestBase {
 
     }
 
+    public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        Set<Issue> issues = app.soap().getIssues();
+        for (Issue issue : issues) {
+            if (issue.getId() == issueId) {
+                if (issue.getResolution().equals("fixed")) {
+                    return false;
+                }
+            }
+        } return true;
+
+    }
+
+
+    public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        if (isIssueOpen(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
+    }
 }
-
-

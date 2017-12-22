@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
 
-public class SoapTests extends TestBase{
+public class SoapTests extends TestBase {
 
     @Test
     public void testGetProjects() throws RemoteException, MalformedURLException, ServiceException {
@@ -28,5 +28,18 @@ public class SoapTests extends TestBase{
                 .withProject(projects.iterator().next());
         Issue createdIssue = app.soap().addIssue(issue);
         Assert.assertEquals(issue.getSummary(), createdIssue.getSummary());
+    }
+
+    @Test
+    public void testIssuesList() throws RemoteException, ServiceException, MalformedURLException {
+        skipIfNotFixed(2);
+        Set<Issue> issues = app.soap().getIssues();
+        for (Issue issue : issues) {
+            if (issue.getId() == 1) {
+                System.out.println(issue.getDescription());
+            }
+
+        }
+
     }
 }
