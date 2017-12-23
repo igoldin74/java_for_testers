@@ -36,9 +36,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local"); //"local" - default property
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        //sessionHelper = new SessionHelper(this);
-        //dbHelper = new DbHelper();
-        //navigationHelper = new NavigationHelper(this);
+
     }
 
     public void stop() {
