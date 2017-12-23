@@ -49,11 +49,18 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void removeContactFromGroup(int id, int id1) {
+    public boolean isContactInAnyGroup() {
+        ContactData contact = app.db().contacts().iterator().next();
+        if (contact.getGroups().size() == 0); {
+            return false;
+        }
+    }
 
-        wd.findElement(By.name("group")).click();
-        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(id));
-        wd.findElement(By.cssSelector("input[id='" + id1 + "']")).click();
+    public void removeContactFromGroup(int id, int id1) {
+        //wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(id1));
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+        wd.findElement(By.name("remove")).click();
     }
 
 
